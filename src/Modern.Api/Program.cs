@@ -21,6 +21,11 @@ builder.Services.AddScoped<OrderService>();
 // Use LegacyOrderAdapter instead while migrating (Strangler Fig):
 // builder.Services.AddScoped<IOrderRepository, LegacyOrderAdapter>();
 
+// Or use the EF Core repository once migrated off EF6/EDMX (Phase 2):
+// builder.Services.AddDbContext<AppDbContext>(o =>
+//     o.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+// builder.Services.AddScoped<IOrderRepository, EfOrderRepository>();
+
 // ── Resilience (Polly v8) ─────────────────────────────────────────────────────
 builder.Services.AddHttpClient("ExternalPaymentGateway", client =>
 {
